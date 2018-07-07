@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Page</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	<div  class="container-fluid">
+	<nav class="navbar navbar-inverse">
+		<div class="navbar-header">
+		 <a class="navbar-brand" href="#">Land Registry</a>
+		</div>
+	</nav>
+	<div class="row">
+		<div class= "col-sm-2 side-view">
+			<br><br>
+				<ul  class="nav nav-pills nav-stacked">
+				<li><h2>Admin Page</h2><br></li>
+				<li><a href="#" onclick="registerLand();"  value="Register Land">
+				<span class="glyphicon glyphicon-th"></span>
+				&nbsp; Register Land</a></li>
+				<li><a href="#"  onclick="registerOwner();" value="register Owner">
+				<span class="glyphicon glyphicon-list-alt"></span>
+				&nbsp;Register Owner</a></li>
+				<li><a href="#"  onclick="searchLand();" value="Search Land">
+				<span class="glyphicon glyphicon-search"></span>
+				&nbsp;Search Land</a></li>
+				<li><a href="#" onclick="searchOwner()"  value="Search Owner">
+				<span class="glyphicon glyphicon-user"></span>
+				&nbsp;Search Owner</a></li>	
+				</ul>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+								
+		</div>
+		<div  id="regLand" name="regLand" style="display:none;"/>
+		<div class ="row" >
+			<div class="col-md-2"></div>
+			<div class="col-md-5">
+			  <h2>Register Land</h2>
+			  <form class="form-group">
+				  <label for="landOwner" >Land Owner</label>
+				  <input class="form-control" id="landOwner" type="text"><br>
+				  <label for="landExOwner" >Land ExOwner</label>
+				  <input  class="form-control" id="landExOwner"type="text" ><br>
+				  <label for="district" >District</label>
+				  <input  class="form-control" id="district"type="text" ><br>
+				  <label for="taluk" >Taluk</label>
+				  <input class="form-control" id="taluk" type="text"><br>
+				  <label for="village">Village</label>
+				  <input  class="form-control" id="village"type="text" ><br>
+				  <label for="pattanumber">Patta Number</label>
+				  <input class="form-control" id="pattanumber"type="text" ><br>
+				  <label for="id1">ID</label>
+				  <input  class="form-control"id="id1"type="text" ><br>
+				  <button class="btn btn-success" id="registerland">Register Land </button>
+			</form> 
+			</div>
+			<div class="col-md-5"></div>
+		</div>
+		</div>	
+		  
+
+	<div class="container" id="regOwner" name="regOwner" style="display:none;">
+		<div class ="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-5">
+				  <h2>Register Owner</h2>
+				  <form class="form-group">
+					  <label for="adhaarNumber" >Adhaar Number</label>
+					  <input  class="form-control"  id="adhaarNumber"type="text" ><br>
+					  <label for="address" >Owner Address</label>
+					  <input class="form-control"  id="address"type="text" ><br>
+					  <label for="sonOf" >Son Of</label>
+					  <input  class="form-control"  id="sonOf" type="text"><br>
+					  <label for="town" >Town</label>
+					  <input  class="form-control"  id="town"type="text" ><br>
+					  <label for="id2">ID</label>
+					  <input  class="form-control"  id="id2" type="text"><br>
+					  <button  class="btn btn-success id="registerowner">Register Owner </button>
+				</form>
+			</div>
+			<div class="col-md-5"></div>
+		</div>
+	</div>		
+
+	<div class="container" id="searchLandId" name="searchLandId" style="display:none;">
+		<div class ="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-5">
+			  <br><br><br>
+			  <h2>Search  Land Using ID</h2>
+			  <form class="form-group">
+				  <label for="idLand" >ID of Land</label>
+				  <input class="form-control" id="idLand" type="text"> <br>
+				  <button  class="btn btn-success" id="landinformation">Land Information </button>
+			  </form>
+			  <h2 id="land"></h2>
+			 </div>
+			 <div class="col-md-5"></div>
+		</div>
+	</div>		 
+
+		<div class="container" id="searchOwnerId" name="searchOwnerId" style="display:none;">
+		<div class ="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-5">
+			  <br><br><br>
+			  <h2>Search  Owner Using ID</h2>
+			  <form class="form-group">
+			  	<label for="idOwner" >ID of Owner</label>
+			  	<input class="form-control" id="idOwner" type="text" ><br>
+			  	<button class="btn btn-success" id="ownerinformation">Owner Information </button>
+			</form>
+			  <h2 id="owner"></h2>
+			</div>
+			 <div class="col-md-5"></div>
+		</div>
+		</div>	  
+</div>
+	</div>
+
+
+
+<script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+
+
+<script>
+	function registerLand()
+{
+
+    document.getElementById('regLand').style.display='block';
+    document.getElementById('regOwner').style.display='none';
+    document.getElementById('searchLandId').style.display='none';
+    document.getElementById('searchOwnerId').style.display='none';
+}
+		function registerOwner()
+{
+
+   document.getElementById('regLand').style.display='none';
+    document.getElementById('regOwner').style.display='block';
+    document.getElementById('searchLandId').style.display='none';
+    document.getElementById('searchOwnerId').style.display='none';
+
+}
+	function searchLand()
+{
+
+   document.getElementById('regLand').style.display='none';
+    document.getElementById('regOwner').style.display='none';
+    document.getElementById('searchLandId').style.display='block';
+    document.getElementById('searchOwnerId').style.display='none';
+
+}
+	function searchOwner()
+{
+
+   document.getElementById('regLand').style.display='none';
+    document.getElementById('regOwner').style.display='none';
+    document.getElementById('searchLandId').style.display='none';
+    document.getElementById('searchOwnerId').style.display='block';
+
+}
+
+
+</script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+    <script>
+        
+        if(typeof web3 !=='undefined')
+        {
+                web3 = new Web3(web3.currentProvider);
+        }
+        else{
+                web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+
+        var Contract = web3.eth.contract([
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_landOwner",
+				"type": "string"
+			},
+			{
+				"name": "_landExOwner",
+				"type": "string"
+			},
+			{
+				"name": "_district",
+				"type": "string"
+			},
+			{
+				"name": "_taluk",
+				"type": "string"
+			},
+			{
+				"name": "_vilage",
+				"type": "string"
+			},
+			{
+				"name": "_pattanumber",
+				"type": "uint8"
+			},
+			{
+				"name": "_id",
+				"type": "uint8"
+			}
+		],
+		"name": "registerLandData",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_aadharNumber",
+				"type": "uint8"
+			},
+			{
+				"name": "_ownerAddress",
+				"type": "string"
+			},
+			{
+				"name": "_sonOf",
+				"type": "string"
+			},
+			{
+				"name": "_town",
+				"type": "string"
+			},
+			{
+				"name": "_id",
+				"type": "uint8"
+			}
+		],
+		"name": "registerOwnerData",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_id",
+				"type": "uint8"
+			}
+		],
+		"name": "getLandData",
+		"outputs": [
+			{
+				"name": "_landOwner",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_id",
+				"type": "uint8"
+			}
+		],
+		"name": "getOwnerData",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint8"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getTotalDataCount",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
+	);
+
+var myContract =Contract.at('0x580c1f954a6dd5fdc89c86ede9ee1301f3a07b4e');
+
+console.log(myContract);
+
+
+
+     $("#landinformation").click(function()  {
+        var two=$("#idLand").val();
+         myContract.getLandData(two, function(error,result){
+             if(!error){
+           
+             
+				$("#land").html('<br>Land Owner: '+ result[0] + ' <br> Land ExOwner: '+result[1] +
+               ' <br> District: '+ result[2] +' <br> Taluk: '+result[3] +'<br>  Village: '+
+              +result[4] + ' <br> Patta Number: '+result[5] );
+             
+             
+              console.log(result);
+
+             }
+             else{
+                 alert("garbar");
+             }
+         })
+
+
+     })
+     
+
+
+ $("#ownerinformation").click(function()  {
+     var one=$("#idOwner").val();
+         myContract.getOwnerData(one, function(error,result){
+             if(!error){
+              
+             
+              $("#owner").html('<br>Aadhar Number: '+ result[0] + ' <br>  OwnerAddress: '+ result[1] +
+              ' <br>  Son Of: '  +result[2]+' <br>  Town: ' +result[3] );
+             
+              console.log(result);
+
+             }
+             else{
+                 alert("garbar");
+             }
+         })
+
+
+     })
+
+    $("#registerland").click(function()  {
+         
+         myContract.registerLandData( $("#landOwner").val(), $("#landExOwner").val(),$("#district").val(),
+         $("#taluk").val(),$("#village").val(), $("#pattanumber").val(),$("#id1").val(),  function(err,res){
+             if(!err){
+                 alert("Add To Blockchain?");
+             }
+             else{console.log(err);}
+         });
+           
+       
+   })
+
+     $("#registerowner").click(function()  {
+         
+         myContract.registerOwnerData($("#adhaarNumber").val(), $("#address").val(),$("#sonOf").val(),
+         $("#town").val(),$("#id2").val(),  function(err,res){
+             if(!err){
+                 alert("Add to Blockchain?");
+             }
+             else{console.log(err);}
+         });
+           
+       
+   })
+   
+</script>
+
+</body>
+</html>

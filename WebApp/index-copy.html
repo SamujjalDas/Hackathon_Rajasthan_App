@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lookup Page</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+</head>
+<body  class="container">
+		
+  <h1>Land Registry</h1>
+  <h2>Lookup Page</h2><br>
+
+ 
+
+  <br><br><br>
+  <h2>Search  Land Using ID</h2>
+  <label for="idLand" >ID of Land</label>
+  <input id="idLand" type="text" >
+  <button id="landinformation">Land Information </button>
+
+  <h2 id="land"></h2>
+  
+
+
+  <br><br><br>
+  <h2>Search  Owner Using ID</h2>
+  <label for="idOwner" >ID of Owner</label>
+  <input id="idOwner" type="text" >
+  <button id="ownerinformation">Owner Information </button>
+
+  <h2 id="owner"></h2>
+
+<script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+    <script>
+        
+        if(typeof web3 !=='undefined')
+        {
+                web3 = new Web3(web3.currentProvider);
+        }
+        else{
+                web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+
+        var Contract = web3.eth.contract([
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_landOwner",
+				"type": "string"
+			},
+			{
+				"name": "_landExOwner",
+				"type": "string"
+			},
+			{
+				"name": "_district",
+				"type": "string"
+			},
+			{
+				"name": "_taluk",
+				"type": "string"
+			},
+			{
+				"name": "_vilage",
+				"type": "string"
+			},
+			{
+				"name": "_pattanumber",
+				"type": "uint8"
+			},
+			{
+				"name": "_id",
+				"type": "uint8"
+			}
+		],
+		"name": "registerLandData",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_aadharNumber",
+				"type": "uint8"
+			},
+			{
+				"name": "_ownerAddress",
+				"type": "string"
+			},
+			{
+				"name": "_sonOf",
+				"type": "string"
+			},
+			{
+				"name": "_town",
+				"type": "string"
+			},
+			{
+				"name": "_id",
+				"type": "uint8"
+			}
+		],
+		"name": "registerOwnerData",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_id",
+				"type": "uint8"
+			}
+		],
+		"name": "getLandData",
+		"outputs": [
+			{
+				"name": "_landOwner",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_id",
+				"type": "uint8"
+			}
+		],
+		"name": "getOwnerData",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint8"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getTotalDataCount",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
+	);
+
+var myContract =Contract.at('0x580c1f954a6dd5fdc89c86ede9ee1301f3a07b4e');
+
+console.log(myContract);
+
+
+     $("#landinformation").click(function()  {
+        var two=$("#idLand").val();
+         myContract.getLandData(two, function(error,result){
+             if(!error){
+           
+               $("#land").html('Land Owner: '+ result[0] + '  Land ExOwner: '+result[1] +
+               '  District: '+ result[2] +'  Taluk: '+result[3] +'  Village: '+
+              +result[4] + '  Patta Number: '+result[5] );
+             
+              console.log(result);
+
+             }
+             else{
+                 alert("garbar");
+             }
+         })
+
+
+     })
+     
+
+
+ $("#ownerinformation").click(function()  {
+     var one=$("#idOwner").val();
+         myContract.getOwnerData(one, function(error,result){
+             if(!error){
+              
+             
+              $("#owner").html('Aadhar Number: '+ result[0] + '   OwnerAddress: '+ result[1] +
+              '   Son Of: '  +result[2]+'   Town: '+result[3] );
+             
+              console.log(result);
+
+             }
+             else{
+                 alert("garbar");
+             }
+         })
+
+
+     })
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+</html>

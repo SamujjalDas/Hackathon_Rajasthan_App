@@ -1,0 +1,42 @@
+input{
+	width:480px;
+	height:40px;
+	border-radius:10px;
+	color:black;
+}
+button{
+	height:45px;
+}
+body{
+	background-image:url("../back2.jpg");
+	background-repeat:no-repeat;
+	
+}
+.idland{
+	margin-right:20px;
+	padding-left:30px;
+	font-size:16px;
+}
+*{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#fff;
+}
+.col-sm-2{
+	background-color:#0e1726 ;
+}
+.side-view{
+	background-color:#0e1726 ;
+		font-weight: bold;
+		margin-left:10px;
+		border-radius:5px;
+		
+}
+
+.side-view  a{
+  background-color: #0b1621;
+    font-weight: bold;
+}
+.navbar{
+	margin-top:5px;
+}
